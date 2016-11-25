@@ -2,6 +2,7 @@ package com.example.ipsenspiegel.fragments;
 
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,8 +16,14 @@ public class MainActivity extends AppCompatActivity implements Fragment1.clickRa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
+        sentido = findViewById(R.id.frameLayoutMainLandscape) == null;
+        if (!sentido) {
+                   FragmentManager fragManager = this.getSupportFragmentManager();
+        FragmentTransaction fragTransaction = fragManager.beginTransaction();
+        fragTransaction.add(R.id.frameLayoutMainLandscape, new Fragment1(), "First fragment");
+        fragTransaction.commit();   }
     }
 
 
@@ -30,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements Fragment1.clickRa
             fragment2.setNumberOnTxtView(rNumber);
         } else if (sentido == false){
             Fragment2 fragment2 = (Fragment2) fm.findFragmentByTag(Fragment2.TAG_SECOND_FRAGMENT);
-            fragment2.setNumberOnTxtView(rNumber);
+           fragment2.setNumberOnTxtView(rNumber);
         }
     }
 
